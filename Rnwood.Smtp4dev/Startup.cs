@@ -76,9 +76,6 @@ namespace Rnwood.Smtp4dev
                 routes.MapHub<SessionsHub>("/hubs/sessions");
             });
 
-
-
-
             app.ApplicationServices.GetService<Smtp4devServer>().Start();
 
             if (env.IsDevelopment())
@@ -90,16 +87,14 @@ namespace Rnwood.Smtp4dev
 
                 using (Stream stream = File.OpenRead("example.eml"))
                 {
-                    Message message = messageConverter.Convert(stream);
+                    Message message = messageConverter.Convert(stream, "from@from.com", "to@to.com");
                     db.Messages.Add(message);
-
                 }
 
                 using (Stream stream = File.OpenRead("example2.eml"))
                 {
-                    Message message = messageConverter.Convert(stream);
+                    Message message = messageConverter.Convert(stream, "from2@from.com", "to2@to.com");
                     db.Messages.Add(message);
-
                 }
 
                 db.SaveChanges();

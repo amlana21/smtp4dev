@@ -10,9 +10,19 @@ namespace Rnwood.Smtp4dev.Server
 {
     public class MessageConverter
     {
-        public Message Convert(Stream messageData)
+        public Message Convert(Stream messageData, string from, string to)
         {
-            MimeMessage mime = MimeMessage.Load(messageData, false);
+            string subject;
+
+            try
+            {
+
+                MimeMessage mime = MimeMessage.Load(messageData, false);
+                subject = mime.Subject;
+            } catch (FormatException e)
+            {
+                subject = "<Invalid MIME message>";
+            }
 
             messageData.Seek(0, SeekOrigin.Begin);
             byte[] data = new byte[messageData.Length];
@@ -22,14 +32,14 @@ namespace Rnwood.Smtp4dev.Server
             {
                 Id = Guid.NewGuid(),
 
-                From = mime.From.ToString(),
-                To = mime.To.ToString(),
+                From = from,
+                To = to,
                 ReceivedDate = DateTime.Now,
-                Subject = mime.Subject,
+                Subject = subject,
                 Data = data
 
             };
-            
+
             return message;
         }
     }
