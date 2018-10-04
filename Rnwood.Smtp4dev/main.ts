@@ -1,6 +1,4 @@
 ﻿import 'es6-collections';
-import 'element-theme-default/lib/index.css';
-
 import Vue from "vue";
 import MessageList from './components/messagelist';
 import SessionList from './components/sessionlist';
@@ -9,11 +7,11 @@ import SessionView from './components/sessionview';
 import Component from "vue-class-component";
 import MessageSummary from "ApiClient/MessageSummary";
 import SessionSummary from "ApiClient/SessionSummary";
+import Quasar from "quasar-framework/dist/quasar.mat.esm";
+import "quasar-framework/dist/umd/quasar.mat.css";
+import "quasar-extras/material-icons/material-icons.css";
 
-import Element from 'element-ui';
-
-Vue.use(Element);
-
+Vue.use(Quasar); 
 
 @Component({})
 export default class Main extends Vue {
@@ -30,6 +28,7 @@ export default class Main extends Vue {
     };
 
 }
+
 
 new Main({
     el: '#app',

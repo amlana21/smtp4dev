@@ -1,17 +1,17 @@
-﻿<div class="fillpanel">
+﻿<div>
 
-    <el-alert v-if="error" type="error">
+    <q-alert v-if="error" type="error">
         {{error.message}}
 
-        <el-button v-on:click="loadMessage">Retry</el-button>
-    </el-alert>
+        <q-btn v-on:click="loadMessage" label="Retry" />
+    </q-alert>
 
     <template v-if="message && message.mimeParseError">
-        <el-alert type="error">Message parse error: {{message.mimeParseError}}</el-alert>
+        <q-alert type="error">Message parse error: {{message.mimeParseError}}</q-alert>
     </template>
 
-    <template v-show="html"
-        <iframe class="fill" @load="onHtmlFrameLoaded" ref="htmlframe"></iframe>
+    <template v-show="html">
+        <iframe @load="onHtmlFrameLoaded" ref="htmlframe"></iframe>
     </template>
 
 </div>

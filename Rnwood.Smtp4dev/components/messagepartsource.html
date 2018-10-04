@@ -1,13 +1,13 @@
-﻿<div class="fillpanel">
+﻿<div class=""" >
 
-    <el-alert v-if="error" type="error">
+    <q-alert v-if="error" type="error">
         {{error.message}}
 
-        <el-button v-on:click="loadMessage">Retry</el-button>
-    </el-alert>
+        <q-btn v-on:click="loadMessage" label="Retry" />
+    </q-alert>
 
-    <template v-if="source" class="fillpanel fill">
-        <textarea class="fill" readonly v-model="source"></textarea>
+    <template v-if="source">
+        <textarea readonly v-model="source"></textarea>
     </template>
 
 </div>

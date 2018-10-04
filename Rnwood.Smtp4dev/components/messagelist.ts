@@ -1,6 +1,5 @@
 ﻿import Component from "vue-class-component";
 import Vue from 'vue'
-import { DefaultSortOptions } from 'element-ui/types/table'
 import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr'
 import MessagesController from "../ApiClient/MessagesController";
 import MessageSummary from "../ApiClient/MessageSummary";
@@ -25,6 +24,37 @@ export default class MessageList extends Vue {
     private connectionStarted = false;
     private selectedSortDescending: boolean = true;
     private selectedSortColumn: string = "receivedDate";
+
+    columns =[ 
+        {
+            name: 'receivedDate',
+            label: 'Received',
+            align: 'left',
+            field: 'receivedDate',
+            sortable: false,
+        },
+        {
+            name: 'from',
+            label: 'From',
+            align: 'left',
+            field: 'from',
+            sortable: false,
+        },
+        {
+            name: 'to',
+            label: 'To',
+            align: 'left',
+            field: 'to',
+            sortable: false,
+        },
+        {
+            name: 'subject',
+            label: 'Subject',
+            align: 'left',
+            field: 'subject',
+            sortable: false,
+        }
+    ];
 
     messages: MessageSummary[] = [];
     error: Error | null = null;
@@ -84,7 +114,7 @@ export default class MessageList extends Vue {
 
     }
 
-    async sort(defaultSortOptions: DefaultSortOptions) {
+    async sort(defaultSortOptions: any) {
         let descending: boolean = true;
         if (defaultSortOptions.order === "ascending") {
             descending = false;

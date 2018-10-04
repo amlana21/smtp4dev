@@ -5,71 +5,6 @@
     <title>smtp4dev</title>
 
     <style type="text/css">
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            background: white;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        #app {
-            width: 100%;
-            height: 100%;
-        }
-
-        .el-tabs {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            width: 100%;
-            align-items: stretch;
-        }
-
-        .el-tab-pane {
-            flex: 1 0 0;
-        }
-
-        .el-tabs__content {
-            flex-grow: 1;
-            display: flex;
-        }
-
-        .messagelist, .messageview {
-            display: flex;
-            flex-direction: column;
-        }
-
-            .messagelist .table {
-                overflow-y: scroll;
-                flex: 1;
-            }
-
-
-        .el-icon-caret-right:before {
-            content: "" !important;
-        }
-
-        .fillpanel {
-            display: flex;
-            flex-direction: row;
-            align-content: stretch;
-        }
-
-            .fillpanel.h {
-                flex-direction: column;
-            }
-
-        .fill {
-            flex: 1 0 0;
-            overflow: auto;
-        }
-
-        .pad {
-            padding: 6px;
-        }
-
         [v-cloak] {
             display: none
         }
@@ -77,48 +12,51 @@
 </head>
 <body>
 
-    <div id="app" v-cloak class="fillpanel">
+    <div id="app">
 
-        <el-tabs id="maintabs" class="fill" value="messages">
-            <el-tab-pane label="Messages" name="messages" class="fillpanel">
-                <span slot="label"><i class="el-icon-message"></i> Messages</span>
+     
+        <q-tabs id="maintabs">
 
-                <div class="fill fillpanel">
-                    <messagelist class="fill" @selected-message-changed="selectedMessageChanged" />
+            <q-tab default slot="title" name="messages" icon="message" >Messages</q-tab>
+            <q-tab slot="title" name="sessions" icon="format_align_left">Sessions</q-tab>
+            <q-tab slot="title" name="settings" icon="settings">Settings</q-tab>
+
+            <q-tab-pane name="messages">
+
+                <div>
+                    <messagelist @selected-message-changed="selectedMessageChanged"></messagelist>
                 </div>
-                <div class="fill fillpanel">
-                    <messageview class="fill" v-bind:message-summary="selectedMessage" />
-                </div>
-
-            </el-tab-pane>
-
-            <el-tab-pane label="Sessions" name="sessions" class="fillpanel">
-                <span slot="label"><i class="el-icon-document"></i> Sessions</span>
-
-                <div class="fill fillpanel">
-                    <sessionlist class="fill" @selected-session-changed="selectedSessionChanged" />
+                <div>
+                    <messageview v-bind:message-summary="selectedMessage"></messageview>
                 </div>
 
-                <div class="fill fillpanel">
-                    <sessionview class="fill" v-bind:session-summary="selectedSession" />
+            </q-tab-pane>
+
+            <q-tab-pane name="sessions">
+
+                <div>
+                    <sessionlist @selected-session-changed="selectedSessionChanged"></sessionlist>
                 </div>
-            </el-tab-pane>
 
-            <el-tab-pane label="Settings" name="settings fillpanel-h">
-                <span slot="label"><i class="el-icon-setting"></i> Settings</span>
+                <div>
+                    <sessionview v-bind:session-summary="selectedSession"></sessionview>
+                </div>
+            </q-tab-pane>
+
+            <q-tab-pane name="settings">
 
 
-                <div class="fill">
-                    <el-alert title="Coming soon!"
+                <div>
+                    <q-alert message="Coming soon!"
                               type="info"
-                              description="To edit the settings, edit appsettings.json and restart the program"
-                              show-icon/>
+                              detail="To edit the settings, edit appsettings.json and restart the program"
+                              show-icon></q-alert>
                 </div>
-            </el-tab-pane>
-        </el-tabs>
+            </q-tab-pane>
+        </q-tabs>
 
 
-
+            
     </div>
 
     <script type="text/javascript" src="dist/bundle.js" async></script>
