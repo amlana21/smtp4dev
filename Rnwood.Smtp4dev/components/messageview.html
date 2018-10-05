@@ -1,19 +1,18 @@
-﻿<div class="messageview"" >
-
+﻿<div >
     <q-alert v-if="error" type="error">
         {{error.message}}
 
         <q-btn v-on:click="loadMessage" label="Retry" />
     </q-alert>
 
-    <div v-if="messageSummary" v-loading="loading"  >
+    <div v-if="messageSummary" v-loading="loading">
 
         <q-btn-group>
 
-            <q-btn icon="el-icon-download" v-on:click="download" label="Download" />
+            <q-btn icon="save_alt" v-on:click="download" label="Download" />
         </q-btn-group>
 
-        <div v-if="message" class="pad">
+        <div v-if="message">
             <table>
                 <tr>
                     <td>From:</td>
@@ -27,7 +26,7 @@
                 <tr v-if="message.cc">
                     <td>Cc:</td>
                     <td>{{message.cc}}</td>
-                </tr v-if="message.cc">
+                </tr>
                 <tr v-if="message.bcc">
                     <td>Bcc:</td>
                     <td>{{message.bcc}}</td>
@@ -36,24 +35,28 @@
                     <td>Subject:</td>
                     <td>{{message.subject}}</td>
                 </tr>
-            </table> 
+            </table>
         </div>
 
-        <el-tabs value="view" style="height: 100%; width:100%" >
+        <q-tabs>
 
 
-            <el-tab-pane label="View" name="view" class=" ">
+            <q-tab default slot="title" name="view">View</q-tab>
+            <q-tab slot="title" name="headers">Headers</q-tab>
+            <q-tab slot="title" name="parts">Parts</q-tab>
+
+            <q-tab-pane name="view">
                 <messageviewattachments :message="message" />
-                <messageview-html :message="message" class=" " />
-            </el-tab-pane>
+                <messageview-html :message="message" />
+            </q-tab-pane>
 
-            <el-tab-pane label="Headers" name="headers" class=" ">
+            <q-tab-pane name="headers">
                 <template v-if="message">
-                    <headers :headers="message.headers" class=" " />
+                    <headers :headers="message.headers" />
                 </template>
-            </el-tab-pane>
+            </q-tab-pane>
 
-            <el-tab-pane label="Parts" name="parts" class=" ">
+            <q-tab-pane name="parts">
 
                 <template v-if="message">
 
@@ -61,23 +64,24 @@
                     <el-tree :data="message.parts" :props="{label: 'name', children: 'childParts', disabled: false, isLeaf: isLeaf}" @node-click="handleNodeClick" highlight-current default-expand-all empty-message="No parts"></el-tree>
 
 
-                    <div v-if="selectedPart" >
+                    <div v-if="selectedPart">
 
-                        <el-tabs value="headers" 
-                            <el-tab-pane label="Headers" name="headers"><headers :headers="selectedPart.headers" /></el-tab-pane>
+                        <q-tabs>
+                            <q-tab default slot="title" name="headers">Headers</q-tab>
+                            <q-tab slot="title" name="source">Source</q-tab>
+                            <q-tab-pane  name="headers"><headers :headers="selectedPart.headers" /></q-tab-pane>
 
+                            <q-tab-pane name="source">
 
-                            <el-tab-pane label="Source" name="source" >
+                                <messagepartsource :messageEntitySummary="selectedPart"></messagepartsource>
+                            </q-tab-pane>
 
-                                <messagepartsource  :messageEntitySummary="selectedPart"></messagepartsource>
-                            </el-tab-pane>
-
-                        </el-tabs>
+                        </q-tabs>
 
                     </div>
                 </template>
-            </el-tab-pane>
-        </el-tabs>
+            </q-tab-pane>
+        </q-tabs>
 
 
 

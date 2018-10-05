@@ -12,6 +12,23 @@ export default class Headers extends Vue {
 
     @Prop({ default: null })
     headers: Header[] | null = null;
+
+    columns = [
+        {
+            name: 'name',
+            label: 'Name',
+            align: 'left',
+            field: 'name',
+            sortable: true,
+        },
+        {
+            name: 'value',
+            label: 'Value',
+            align: 'left',
+            field: 'value',
+            sortable: true,
+        }
+    ];
     
 
     async created() {

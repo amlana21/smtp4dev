@@ -1,4 +1,4 @@
-﻿import Component from "vue-class-component";
+﻿import { Component, Prop, Watch } from 'vue-property-decorator'
 import Vue from 'vue'
 import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr'
 import MessagesController from "../ApiClient/MessagesController";
@@ -58,12 +58,20 @@ export default class MessageList extends Vue {
 
     messages: MessageSummary[] = [];
     error: Error | null = null;
-    selectedmessage: MessageSummary | null = null;
+    selectedmessages: MessageSummary[] = [];
+    selectedmessage: MessageSummary| null = null;
     loading = true;
 
-    handleCurrentChange(message: MessageSummary | null): void {
-        this.selectedmessage = message;
-        this.$emit("selected-message-changed", message);
+    @Watch("selectedmessages")
+    private onSelectedMessagesChanged() {
+
+        if (this.selectedmessages.length == 1) {
+            this.selectedmessage = this.selectedmessages[0];
+        } else {
+            this.selectedmessage = null;
+        }
+
+        this.$emit("selected-message-changed", this.selectedmessage);
     }
 
     async deleteSelected() {
@@ -95,6 +103,7 @@ export default class MessageList extends Vue {
     async refresh() {
 
         this.error = null;
+        this.loading = true;
 
         try {
             if (!this.connectionStarted) {

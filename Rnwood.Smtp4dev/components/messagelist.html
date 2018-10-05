@@ -15,12 +15,12 @@
 
 
 
-    <q-table :data="messages" :columns="columns" row-key="id"  v-loading="loading" selection="single" rows-per-page-options="" >
+    <q-table :data="messages" :columns="columns" :selected.sync="selectedmessages" row-key="id" v-loading="loading" selection="single" rows-per-page-options="">
 
     </q-table>
 
 
-
+    <!--
     <el-table ref="singleTable" :data="messages" loading="loading" empty-text="No messages"
               highlight-current-row @current-change="handleCurrentChange" @sort-change="sort" class="table">
         <el-table-column type="index" width="50">
@@ -34,4 +34,5 @@
         <el-table-column property="subject" label="Subject" sortable="custom">
         </el-table-column>
     </el-table>
+        -->
 </div>
