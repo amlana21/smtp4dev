@@ -12,49 +12,64 @@
 </head>
 <body>
 
-    <div id="app">
+    <div id="app" class="v-cloak">
 
      
-        <q-tabs id="maintabs">
+        <q-layout>
 
-            <q-tab default slot="title" name="messages" icon="message" >Messages</q-tab>
-            <q-tab slot="title" name="sessions" icon="format_align_left">Sessions</q-tab>
-            <q-tab slot="title" name="settings" icon="settings">Settings</q-tab>
+            <q-toolbar>
+                <q-toolbar-title>
+                    smtp4dev
+                </q-toolbar-title>
+            </q-toolbar>
 
-            <q-tab-pane name="messages">
+            <q-tabs id="maintabs">
 
-                <div>
-                    <messagelist @selected-message-changed="selectedMessageChanged"></messagelist>
-                </div>
-                <div>
-                    <messageview v-bind:message-summary="selectedMessage"></messageview>
-                </div>
+                <q-tab default slot="title" name="messages" icon="message">Messages</q-tab>
+                <q-tab slot="title" name="sessions" icon="format_align_left">Sessions</q-tab>
+                <q-tab slot="title" name="settings" icon="settings">Settings</q-tab>
 
-            </q-tab-pane>
+                <q-tab-pane name="messages" class="" keep-alive="true">
 
-            <q-tab-pane name="sessions">
+                    <q-layout>
 
-                <div>
-                    <sessionlist @selected-session-changed="selectedSessionChanged"></sessionlist>
-                </div>
+                        <div class="row no-wrap items-stretch gutter-md ">
+                            <div class="col-6 ">
+                                <messagelist @selected-message-changed="selectedMessageChanged"></messagelist>
+                            </div>
+                            <div class="col-6 ">
+                                <messageview v-bind:message-summary="selectedMessage"></messageview>
+                            </div>
+                        </div>
+                    </q-layout>
 
-                <div>
-                    <sessionview v-bind:session-summary="selectedSession"></sessionview>
-                </div>
-            </q-tab-pane>
+                </q-tab-pane>
 
-            <q-tab-pane name="settings">
+                <q-tab-pane name="sessions" keep-alive="true">
+
+                    <div>
+                        <sessionlist @selected-session-changed="selectedSessionChanged"></sessionlist>
+                    </div>
+
+                    <div>
+                        <sessionview v-bind:session-summary="selectedSession"></sessionview>
+                    </div>
+                </q-tab-pane>
+
+                <q-tab-pane name="settings"  keep-alive="true">
 
 
-                <div>
-                    <q-alert message="Coming soon!"
-                              type="info"
-                              detail="To edit the settings, edit appsettings.json and restart the program"
-                              show-icon></q-alert>
-                </div>
-            </q-tab-pane>
-        </q-tabs>
+                    <div>
+                        <q-alert message="Coming soon!"
+                                 type="info"
+                                 detail="To edit the settings, edit appsettings.json and restart the program"
+                                 show-icon></q-alert>
+                    </div>
+                </q-tab-pane>
+            </q-tabs>
 
+
+        </q-layout>
 
             
     </div>

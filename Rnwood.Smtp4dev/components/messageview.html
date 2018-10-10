@@ -1,4 +1,4 @@
-﻿<div >
+﻿<div>
     <q-alert v-if="error" type="error">
         {{error.message}}
 
@@ -45,18 +45,18 @@
             <q-tab slot="title" name="headers">Headers</q-tab>
             <q-tab slot="title" name="parts">Parts</q-tab>
 
-            <q-tab-pane name="view">
+            <q-tab-pane name="view" keep-alive="true">
                 <messageviewattachments :message="message" />
                 <messageview-html :message="message" />
             </q-tab-pane>
 
-            <q-tab-pane name="headers">
+            <q-tab-pane name="headers" keep-alive="true">
                 <template v-if="message">
                     <headers :headers="message.headers" />
                 </template>
             </q-tab-pane>
 
-            <q-tab-pane name="parts">
+            <q-tab-pane name="parts" keep-alive="true">
 
                 <template v-if="message">
 
@@ -69,7 +69,7 @@
                         <q-tabs>
                             <q-tab default slot="title" name="headers">Headers</q-tab>
                             <q-tab slot="title" name="source">Source</q-tab>
-                            <q-tab-pane  name="headers"><headers :headers="selectedPart.headers" /></q-tab-pane>
+                            <q-tab-pane name="headers"><headers :headers="selectedPart.headers" /></q-tab-pane>
 
                             <q-tab-pane name="source">
 
